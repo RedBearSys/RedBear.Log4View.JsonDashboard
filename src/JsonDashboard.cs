@@ -33,8 +33,11 @@ namespace RedBear.Log4View.JsonDashboard
                     _loaded = false;
                     // ReSharper disable once PossibleNullReferenceException
                     _message = message;
-                    
-                    var obj = JObject.Parse(message.Message);
+
+                    var startIndex = message.Message.IndexOf("{", StringComparison.Ordinal);
+                    var endIndex = message.Message.LastIndexOf("}", StringComparison.Ordinal) + 1;
+                    var json = message.Message.Substring(startIndex, endIndex - startIndex);
+                    var obj = JObject.Parse(json);
 
                     treeView.BeginUpdate();
                     treeView.Nodes.Clear();

@@ -516,4 +516,4 @@ paket-files/
 *.sln.iml
 
 # Stuff we actually DO want to include, even though it's currently ignored because of the above rules.
-!dev/*.*
+!deps/*.*
