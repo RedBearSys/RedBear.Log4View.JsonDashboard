@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="*" Name="Json Message Viewer for Log4View" Language="1033" Version="1.0.0.0" Manufacturer="Red Bear Systems Limited" UpgradeCode="4789a897-7013-4cf9-ad7d-176532ed19ba">
+        <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+        <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+        <Media Id="1" Cabinet="Cab1.cab" EmbedCab="yes" />
+        <Feature Id="ProductFeature" Title="RedBear.Log4View.JsonDashboard.Setup" Level="1">
+            <ComponentGroupRef Id="ProductComponents" />
+        </Feature>
+      <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+      <UI Id='Mondo'>
+        <UIRef Id="WixUI_InstallDir" />
+        <Publish Dialog="WelcomeDlg"
+              Control="Next"
+              Event="NewDialog"
+              Value="InstallDirDlg"
+              Order="2">1</Publish>
+        <Publish Dialog="InstallDirDlg"
+              Control="Back"
+              Event="NewDialog"
+              Value="WelcomeDlg"
+              Order="2">1</Publish>
+      </UI>
+      <WixVariable Id="WixUIBannerBmp" Value="banner.bmp" />
+      <WixVariable Id="WixUIDialogBmp" Value="dialog.bmp" />
+    </Product>
+    <Fragment>
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder">
+                <Directory Id="INSTALLFOLDER" Name="Log4View" />
+            </Directory>
+        </Directory>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+            <Component Id="ProductComponent" Guid="">
+                <File Source="$(var.JsonDashboard.TargetPath)" />
+            </Component>
+        </ComponentGroup>
+    </Fragment>
+</Wix>
