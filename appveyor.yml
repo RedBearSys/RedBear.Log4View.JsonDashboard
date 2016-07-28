@@ -10,19 +10,20 @@ before_build:
 - cmd: nuget restore src\JsonDashboard.sln
 build:
   verbosity: minimal
+after_build:
+- cmd: copy src\RedBear.Log4View.JsonDashboard.Setup\bin\Release\RedBear.Log4View.JsonDashboard.Setup.msi .\RedBear.Log4View.JsonDashboard.Setup.msi
 notifications:
 - provider: Slack
   incoming_webhook:
     secure: Mtm90XxM7T+5NlCQZ6xlQMqJ4I88JWmn6Vf3CgsTmhmcWPZHzIX5v5UxiOxtXqlpqWYVaXLCBsxU3vCMw+Ru9rhtrVag0a9ZvTzg59uU4KM=
 artifacts:
-- path: src\RedBear.Log4View.JsonDashboard.Setup\bin\Release\RedBear.Log4View.JsonDashboard.Setup.msi
+- path: RedBear.Log4View.JsonDashboard.Setup.msi
 deploy:
   provider: AzureBlob
   storage_account_name: rbpublic
   storage_access_key:
     secure: kM+0k+fbuvqkBACRn2ZR3PkVyeq6cUzQa6jVD3BKVyO32xuJvfWUjynQl6Y2ye2hAJCZ5KO0oK2vFxZfw2+4PS5P4pF+dL59NGAT5UoTSnmVjyOXK6ly+sguZMLZk7fc
   container: log4view
-  folder: \
-  artifact: src\RedBear.Log4View.JsonDashboard.Setup\bin\Release\RedBear.Log4View.JsonDashboard.Setup.msi
+  artifact: RedBear.Log4View.JsonDashboard.Setup.msi
   unzip: false
   set_content_type: true
